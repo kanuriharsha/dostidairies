@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: dostidairies-backend
+    env: node
+    plan: free
+    region: oregon
+    # Replace the repo and branch below with your GitHub repo and branch (or leave for manual setup in Render's UI)
+    repo: https://github.com/<OWNER>/<REPO>
+    branch: main
+    # Build and start commands run relative to the repository root; we cd into backend
+    buildCommand: "cd backend && npm install"
+    startCommand: "cd backend && npm start"
+    # Optional: you can set env vars here or in the Render UI (recommended for secrets)
+    # envVars:
+    #   - key: MONGO_URI
+    #     value: "<your_mongo_uri>"
+    #     scope: PRIVATE
+    #   - key: JWT_SECRET
+    #     value: "<your_jwt_secret>"
+    #     scope: PRIVATE
+    #   - key: PORT
+    #     value: "4001"

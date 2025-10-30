@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: dostidairies-backend
+    env: node
+    plan: free
+    region: oregon
+    # This render.yaml is intended to be placed inside the backend folder so
+    # if you upload the `backend` directory directly to Render it will use
+    # the commands below (no need to `cd` into backend).
+    repo: https://github.com/<OWNER>/<REPO>
+    branch: main
+    # Build and start commands run relative to the service root (backend folder)
+    buildCommand: "npm install"
+    startCommand: "npm start"
+    # Please set the following env vars in the Render dashboard (do not commit secrets):
+    # - MONGO_URI (your MongoDB connection string)
+    # - JWT_SECRET (a strong secret for signing JWTs)
+    # - PORT (optional, default 4001)
