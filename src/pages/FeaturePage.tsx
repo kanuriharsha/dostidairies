@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { PenLine, Heart, Send } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { FloatingHearts } from '../components/FloatingHearts';
@@ -88,6 +88,10 @@ export const FeaturePage = () => {
     }
   };
 
+  const navigateToLogin = useCallback(() => {
+    window.dispatchEvent(new CustomEvent('dosti:navigate', { detail: 'login' }));
+  }, []);
+
   if (!user) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-pink-50 via-rose-50 to-cream-50 relative flex items-center justify-center">
@@ -95,9 +99,25 @@ export const FeaturePage = () => {
         <div className="relative z-10 text-center px-4">
           <Heart className="w-20 h-20 text-pink-500 mx-auto mb-6 animate-pulse" />
           <h2 className="text-3xl font-bold text-gray-800 mb-4">Login Required</h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-600 mb-6">
             Please login to share your beautiful story with the world
           </p>
+
+          {/* Added buttons for quick navigation to the login/subscribe page */}
+          <div className="flex items-center justify-center space-x-4">
+            <button
+              onClick={navigateToLogin}
+              className="px-6 py-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-full hover:shadow-lg transform hover:scale-105 transition-all"
+            >
+              Login
+            </button>
+            <button
+              onClick={navigateToLogin}
+              className="px-6 py-3 border border-pink-300 text-pink-600 rounded-full hover:bg-pink-50 transition-all"
+            >
+              Sign Up
+            </button>
+          </div>
         </div>
       </div>
     );

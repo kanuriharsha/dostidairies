@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AuthProvider } from './contexts/AuthContext';
 import { Navbar } from './components/Navbar';
 import { HomePage } from './pages/HomePage';
@@ -31,6 +31,18 @@ function App() {
         return <HomePage />;
     }
   };
+
+  // Add a simple global navigation event so pages can request navigation
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const ce = e as CustomEvent<string>;
+      if (ce?.detail) {
+        setCurrentPage(ce.detail as Page);
+      }
+    };
+    window.addEventListener('dosti:navigate', handler as EventListener);
+    return () => window.removeEventListener('dosti:navigate', handler as EventListener);
+  }, []);
 
   return (
     <AuthProvider>
